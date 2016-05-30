@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">YelpApiDemo</string>
+    <string name="redo">We got network problem, please click to refresh.</string>
+    <string name="category_korean">Korean</string>
+    <string name="category_chinese">Chinese</string>
+    <string name="category_sushi">Sushi</string>
+    <string name="category_ramen">Ramen</string>
+</resources>
