@@ -5,4 +5,15 @@
     <string name="category_chinese">Chinese</string>
     <string name="category_sushi">Sushi</string>
     <string name="category_ramen">Ramen</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="open_google_map">Open GoogleMap?</string>
+    <string name="you_will_be_guided_to">You will be guided to %1$s</string>
+    <string name="you_will_be_calling">You will call %1$s</string>
+    <string name="make_phone_call">Call the merchant</string>
+    <string name="go_to_web">To Yelp WebPage</string>
+    <string name="we_got_reviews_want_add_more">We got %1$d reviews for this merchant, let\'s add more!</string>
+    <string name="detail_activity_address">Address</string>
+    <string name="detail_activity_phone">Phone</string>
+    <string name="detail_activity_latest_review">Latest Review</string>
 </resources>

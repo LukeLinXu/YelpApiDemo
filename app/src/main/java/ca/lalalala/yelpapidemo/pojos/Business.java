@@ -99,4 +99,8 @@ public class Business {
     public Location getLocation() {
         return location;
     }
+
+    public Collection<Review> getReviews() {
+        return reviews;
+    }
 }
