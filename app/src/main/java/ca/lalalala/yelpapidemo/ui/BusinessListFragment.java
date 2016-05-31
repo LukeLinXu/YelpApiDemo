@@ -1,6 +1,5 @@
 package ca.lalalala.yelpapidemo.ui;// File created by llin on 30/05/2016
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +32,15 @@ import rx.Subscriber;
 public class BusinessListFragment extends ClickToRefreshFragmentBase{
     private RecyclerView recyclerView;
     private String term;
+    private int count = 0;
+    private int sortOption;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         term = getArguments().getString(Extras.DATA);
+        count = getArguments().getInt(Extras.COUNT, 0);
+        sortOption = getArguments().getInt(Extras.SORT_OPTIONS, MainActivity.SORT_OPTIONS_BEST);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -54,6 +57,9 @@ public class BusinessListFragment extends ClickToRefreshFragmentBase{
             public void call(final Subscriber<? super Object> subscriber) {
                 Map<String, String> params = new HashMap<>();
                 params.put("term", term);
+                if(count != 0){
+                    params.put("limit", String.valueOf(count));
+                }
                 Call<SearchResponse> call = YelpAPIFactory.getYelpAPI().search("Toronto", params);
                 call.enqueue(new Callback<SearchResponse>() {
                     @Override
@@ -74,12 +80,17 @@ public class BusinessListFragment extends ClickToRefreshFragmentBase{
     protected void refreshUI(RelativeLayout mainContent, Object object) {
         if(!(object instanceof SearchResponse)) return;
         SearchResponse searchResponse = (SearchResponse) object;
-        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(getActivity(), new ArrayList<Business>(searchResponse.getBusinesses())));
+        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(getActivity(), searchResponse.getBusinesses
+                (sortOption)));
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_business_list;
+    }
+
+    public void setSortOption(int sortOption) {
+        this.sortOption = sortOption;
     }
 
     public static class SimpleRecyclerViewAdapter

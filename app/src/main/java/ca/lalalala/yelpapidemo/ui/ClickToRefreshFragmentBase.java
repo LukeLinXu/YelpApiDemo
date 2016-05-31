@@ -45,7 +45,8 @@ public abstract class ClickToRefreshFragmentBase extends Fragment {
 
     protected abstract void initView(View spView);
 
-    private void refresh(){
+    void refresh(){
+        if(subscription != null) subscription.unsubscribe();
         this.subscription = doRefresh()
                 .doOnSubscribe(new Action0() {
                     @Override

@@ -3,6 +3,8 @@ package ca.lalalala.yelpapidemo.ui; // File created by llin on 30/05/2016
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -21,18 +23,24 @@ import ca.lalalala.yelpapidemo.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int SORT_OPTIONS_BEST = 0;
+    public static final int SORT_ALPHA = 1;
+    private int currentSortOption = SORT_OPTIONS_BEST;
+    private ViewPager viewPager;
+    private SimpleAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
-            setupViewPager(viewPager);
+            setupViewPager();
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
         }
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -45,34 +53,72 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.search:
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra(Extras.SORT_OPTIONS,
+                        currentSortOption));
+                break;
+            case R.id.sort:
+                showSortingOptions(MainActivity.this, currentSortOption);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
+    private void handleSortOptionsChange(int which) {
+        currentSortOption = which;
+        if(adapter != null){
+            adapter.change(which);
+        }
+    }
+
+    private void setupViewPager() {
+        adapter = new SimpleAdapter(getSupportFragmentManager());
         for(Category category : Category.values()){
             adapter.addFragment(category, getResources());
         }
         viewPager.setAdapter(adapter);
     }
 
-    static class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
+    private void showSortingOptions(final MainActivity context, final int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.pick_sorting_option)
+                .setSingleChoiceItems(R.array.sorting_options_array, position, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which != position){
+                            context.handleSortOptionsChange(which);
+                        }
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    class SimpleAdapter extends FragmentPagerAdapter {
+        private final List<BusinessListFragment> mFragments = new ArrayList<>();
         private final List<String> mFragmentTitles = new ArrayList<>();
 
-        public Adapter(FragmentManager fm) {
+        public SimpleAdapter(FragmentManager fm) {
             super(fm);
         }
 
         public void addFragment(Category category, Resources res) {
-            Fragment fragment = new BusinessListFragment();
+            BusinessListFragment fragment = new BusinessListFragment();
             Bundle bundle = new Bundle();
             bundle.putString(Extras.DATA, category.name());
+            bundle.putInt(Extras.SORT_OPTIONS, currentSortOption);
             fragment.setArguments(bundle);
             mFragments.add(fragment);
             mFragmentTitles.add(res.getString(category.getTitleResId()));
+        }
+
+        public void change(int sortOption){
+            for (BusinessListFragment fragment : mFragments){
+                fragment.setSortOption(sortOption);
+                if(fragment.isResumed()){
+                    fragment.refresh();
+                }
+            }
         }
 
         @Override

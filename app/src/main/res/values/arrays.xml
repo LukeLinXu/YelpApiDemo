@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="sorting_options_array">
+
+        <item>Best matched</item>
+
+        <item>Alphabetically</item>
+
+    </string-array>
+
+</resources>

@@ -41,6 +41,8 @@ public class SearchActivity extends AppCompatActivity {
         Fragment fragment = new BusinessListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Extras.DATA, searchText);
+        bundle.putInt(Extras.COUNT, 10);
+        bundle.putInt(Extras.SORT_OPTIONS, getIntent().getIntExtra(Extras.SORT_OPTIONS, MainActivity.SORT_OPTIONS_BEST));
         fragment.setArguments(bundle);
         Utils.switchFragment(getSupportFragmentManager(), fragment, R.id.fragment_container);
         return true;
