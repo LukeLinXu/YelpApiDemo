@@ -1,4 +1,4 @@
-package ca.lalalala.yelpapidemo; // File created by llin on 30/05/2016
+package ca.lalalala.yelpapidemo.ui; // File created by llin on 30/05/2016
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import ca.lalalala.yelpapidemo.Category;
+import ca.lalalala.yelpapidemo.Extras;
+import ca.lalalala.yelpapidemo.R;
 
 public class MainActivity extends AppCompatActivity {
 

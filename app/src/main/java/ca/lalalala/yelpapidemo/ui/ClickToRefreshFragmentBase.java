@@ -1,4 +1,4 @@
-package ca.lalalala.yelpapidemo;// File created by llin on 30/05/2016
+package ca.lalalala.yelpapidemo.ui;// File created by llin on 30/05/2016
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import ca.lalalala.yelpapidemo.R;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;

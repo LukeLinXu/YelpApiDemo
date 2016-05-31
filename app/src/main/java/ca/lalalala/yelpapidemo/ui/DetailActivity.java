@@ -1,4 +1,4 @@
-package ca.lalalala.yelpapidemo; // File created by llin on 30/05/2016
+package ca.lalalala.yelpapidemo.ui; // File created by llin on 30/05/2016
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import ca.lalalala.yelpapidemo.R;
+import ca.lalalala.yelpapidemo.Utils;
 import com.bumptech.glide.Glide;
 
 import java.util.Date;

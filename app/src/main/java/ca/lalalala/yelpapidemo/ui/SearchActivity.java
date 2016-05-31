@@ -1,4 +1,4 @@
-package ca.lalalala.yelpapidemo;// File created by llin on 31/05/2016
+package ca.lalalala.yelpapidemo.ui;// File created by llin on 31/05/2016
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
+import ca.lalalala.yelpapidemo.Extras;
+import ca.lalalala.yelpapidemo.R;
+import ca.lalalala.yelpapidemo.Utils;
 
 public class SearchActivity extends AppCompatActivity {
 

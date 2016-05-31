@@ -1,4 +1,4 @@
-package ca.lalalala.yelpapidemo;// File created by llin on 30/05/2016
+package ca.lalalala.yelpapidemo.ui;// File created by llin on 30/05/2016
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import ca.lalalala.yelpapidemo.Extras;
+import ca.lalalala.yelpapidemo.R;
 import ca.lalalala.yelpapidemo.pojos.Business;
 import ca.lalalala.yelpapidemo.pojos.SearchResponse;
-import ca.lalalala.yelpapidemo.restfulclient.YelpAPI;
 import ca.lalalala.yelpapidemo.restfulclient.YelpAPIFactory;
 import com.bumptech.glide.Glide;
 import retrofit2.Call;
