@@ -72,6 +72,10 @@ public class Business {
         return image_url;
     }
 
+    public String getLargeImage_url() {
+        return image_url.replace("ms.jpg", "l.jpg");
+    }
+
     public String getSnippet_image_url() {
         return snippet_image_url;
     }

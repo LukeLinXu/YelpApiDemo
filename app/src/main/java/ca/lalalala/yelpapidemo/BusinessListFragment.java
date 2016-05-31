@@ -53,9 +53,7 @@ public class BusinessListFragment extends ClickToRefreshFragmentBase{
             public void call(final Subscriber<? super Object> subscriber) {
                 Map<String, String> params = new HashMap<>();
                 params.put("term", term);
-                YelpAPIFactory apiFactory = new YelpAPIFactory();
-                YelpAPI yelpAPI = apiFactory.createAPI();
-                Call<SearchResponse> call = yelpAPI.search("Toronto", params);
+                Call<SearchResponse> call = YelpAPIFactory.getYelpAPI().search("Toronto", params);
                 call.enqueue(new Callback<SearchResponse>() {
                     @Override
                     public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
