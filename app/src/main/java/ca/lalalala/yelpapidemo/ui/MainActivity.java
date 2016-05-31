@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
             mFragmentTitles.add(res.getString(category.getTitleResId()));
         }
 
+        /**
+         * grasp all the fragments, change their sort option, force them to refresh
+         * @param sortOption
+         */
         public void change(int sortOption){
             for (BusinessListFragment fragment : mFragments){
                 fragment.setSortOption(sortOption);

@@ -1,5 +1,7 @@
 package ca.lalalala.yelpapidemo.ui; // File created by llin on 30/05/2016
 
+import java.util.Date;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,16 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import ca.lalalala.yelpapidemo.R;
 import ca.lalalala.yelpapidemo.Utils;
-import com.bumptech.glide.Glide;
-
-import java.util.Date;
-
 import ca.lalalala.yelpapidemo.pojos.Business;
 import ca.lalalala.yelpapidemo.pojos.Review;
 import ca.lalalala.yelpapidemo.restfulclient.YelpAPIFactory;
+import com.bumptech.glide.Glide;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,14 +33,11 @@ public class DetailActivity extends AppCompatActivity{
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
         final String id = intent.getStringExtra(INFO);
-
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-
         Call<Business> businessCall = YelpAPIFactory.getYelpAPI().getBusiness(id);
         businessCall.enqueue(new Callback<Business>() {
             @Override

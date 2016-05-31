@@ -6,6 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
+/**
+ * this class used to create Yelp API object
+ */
 public class YelpAPIFactory {
 
     private static final String YELP_API_BASE_URL = "https://api.yelp.com";
@@ -16,10 +19,12 @@ public class YelpAPIFactory {
     private OkHttpClient httpClient;
     private static YelpAPI yelpAPI;
 
+    /**
+     * sign the client
+     */
     public YelpAPIFactory() {
         OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
         consumer.setTokenWithSecret(TOKEN, TOKEN_SECRET);
-
         this.httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new SigningInterceptor(consumer))
                 .build();

@@ -10,6 +10,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
+/**
+ * Yelp API interface, all the call will go with this
+ */
 public interface YelpAPI {
 
     @GET("/v2/business/{businessId}")

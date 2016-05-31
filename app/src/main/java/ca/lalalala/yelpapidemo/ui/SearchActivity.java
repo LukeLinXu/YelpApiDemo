@@ -38,6 +38,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private boolean submitTextChanges(String searchText) {
+        //when the query submit, we create a new BusinessListFragment with query.
         Fragment fragment = new BusinessListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Extras.DATA, searchText);

@@ -29,6 +29,9 @@ import retrofit2.Response;
 import rx.Observable;
 import rx.Subscriber;
 
+/**
+ * This fragment is used to show business list.
+ */
 public class BusinessListFragment extends ClickToRefreshFragmentBase{
     private RecyclerView recyclerView;
     private String term;
@@ -60,6 +63,7 @@ public class BusinessListFragment extends ClickToRefreshFragmentBase{
                 if(count != 0){
                     params.put("limit", String.valueOf(count));
                 }
+                //hard code location in Toronto
                 Call<SearchResponse> call = YelpAPIFactory.getYelpAPI().search("Toronto", params);
                 call.enqueue(new Callback<SearchResponse>() {
                     @Override
@@ -115,10 +119,6 @@ public class BusinessListFragment extends ClickToRefreshFragmentBase{
                 mAdd = (TextView) view.findViewById(R.id.list_item_add);
             }
 
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mAdd.getText();
-            }
         }
 
         public SimpleRecyclerViewAdapter(Context context, List<Business> items) {
