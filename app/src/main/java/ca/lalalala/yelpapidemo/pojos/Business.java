@@ -1,5 +1,9 @@
 package ca.lalalala.yelpapidemo.pojos;// File created by llin on 30/05/2016
 
+import java.util.Collection;
+
+import javax.sql.RowSetEvent;
+
 public class Business {
 
     private boolean is_claimed;
@@ -19,6 +23,7 @@ public class Business {
     private String id;
     private boolean is_closed;
     private Location location;
+    private Collection<Review> reviews;
 
     public Business() {
     }

@@ -139,7 +139,7 @@ public class BusinessListFragment extends ClickToRefreshFragmentBase{
                 }
             });
             Glide.with(holder.mImageView.getContext())
-                    .load(mValues.get(position).getSnippet_image_url())
+                    .load(mValues.get(position).getImage_url())
                     .fitCenter()
                     .into(holder.mImageView);
         }
