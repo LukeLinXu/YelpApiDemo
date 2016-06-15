@@ -4,17 +4,17 @@ import java.util.Date;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ca.lalalala.yelpapidemo.R;
 import ca.lalalala.yelpapidemo.Utils;
+import ca.lalalala.yelpapidemo.databinding.ActivityDetailBinding;
 import ca.lalalala.yelpapidemo.pojos.Business;
 import ca.lalalala.yelpapidemo.pojos.Review;
 import ca.lalalala.yelpapidemo.restfulclient.YelpAPIFactory;
@@ -30,20 +30,17 @@ public class DetailActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        final ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         Intent intent = getIntent();
         final String id = intent.getStringExtra(INFO);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         Call<Business> businessCall = YelpAPIFactory.getYelpAPI().getBusiness(id);
         businessCall.enqueue(new Callback<Business>() {
             @Override
             public void onResponse(Call<Business> call, Response<Business> response) {
-                setupView(response.body());
-                collapsingToolbar.setTitle(response.body().getName());
+                setupView(response.body(), binding);
+                binding.collapsingToolbar.setTitle(response.body().getName());
             }
 
             @Override
@@ -53,26 +50,23 @@ public class DetailActivity extends AppCompatActivity{
         });
     }
 
-    private void setupView(final Business business) {
-        ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+    private void setupView(final Business business, ActivityDetailBinding binding) {
         View address = findViewById(R.id.activity_detail_address);
         View tel = findViewById(R.id.activity_detail_tel);
         View review = findViewById(R.id.activity_detail_review);
 
-        Glide.with(this).load(business.getLargeImage_url()).centerCrop().into(imageView);
-        setupCardView(address, getString(R.string.detail_activity_address), business.getLocation().getDisplay_address());
-        setupCardView(tel, getString(R.string.detail_activity_phone), business.getPhone());
+        Glide.with(this).load(business.getLargeImage_url()).centerCrop().into(binding.backdrop);
 
         if(business.getReviews().size() != 0){
             review.setVisibility(View.VISIBLE);
             Review reviewObject = business.getReviews().iterator().next();
-            TextView titleTextView = (TextView) review.findViewById(R.id.card_layout_title);
+//            TextView titleTextView = (TextView) review.findViewById(R.id.card_layout_title);
             TextView contentTextView = (TextView) review.findViewById(R.id.card_layout_content);
             TextView name = (TextView) review.findViewById(R.id.card_layout_user_name);
             TextView time = (TextView) review.findViewById(R.id.card_layout_user_create_time);
             ImageView user_image = (ImageView) review.findViewById(R.id.card_layout_user_image);
             ImageView user_rating = (ImageView) review.findViewById(R.id.card_layout_user_review_rating);
-            titleTextView.setText(getString(R.string.detail_activity_latest_review));
+//            titleTextView.setText(getString(R.string.detail_activity_latest_review));
             contentTextView.setText(reviewObject.getExcerpt());
             name.setText(reviewObject.getUser().getName());
             time.setText(new Date(reviewObject.getTime_created() * 1000).toString());
@@ -119,13 +113,7 @@ public class DetailActivity extends AppCompatActivity{
                 });
             }
         });
-    }
-
-    private void setupCardView(View view, String title, String content){
-        TextView titleTextView = (TextView) view.findViewById(R.id.card_layout_title);
-        TextView contentTextView = (TextView) view.findViewById(R.id.card_layout_content);
-        titleTextView.setText(title);
-        contentTextView.setText(content);
+        binding.setBusiness(business);
     }
 
     @Override

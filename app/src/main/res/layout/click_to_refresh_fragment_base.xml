@@ -3,8 +3,8 @@
 
     <data class="ClickBaseBinding">
         <import type="android.view.View"/>
-        <variable name="showContent" type="Boolean"/>
-        <variable name="showProgress" type="Boolean"/>
+        <variable name="showContent" type="boolean"/>
+        <variable name="showProgress" type="boolean"/>
     </data>
 
     <RelativeLayout
