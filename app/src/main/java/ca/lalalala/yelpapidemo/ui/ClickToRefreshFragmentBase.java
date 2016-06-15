@@ -1,14 +1,14 @@
 package ca.lalalala.yelpapidemo.ui;// File created by llin on 30/05/2016
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import ca.lalalala.yelpapidemo.R;
+import ca.lalalala.yelpapidemo.databinding.ClickBaseBinding;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -17,28 +17,23 @@ import rx.functions.Action0;
 
 public abstract class ClickToRefreshFragmentBase extends Fragment {
 
-    private RelativeLayout mainContent;
-    private TextView refreshButton;
-    private ProgressBar progressBar;
     private Subscription subscription;
+    private ClickBaseBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.click_to_refresh_fragment_base, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.click_to_refresh_fragment_base, container, false);
         View spView = inflater.inflate(getLayoutId(), container, false);
-        mainContent = (RelativeLayout) view.findViewById(R.id.click_to_refresh_fragment_maincontent);
-        mainContent.addView(spView);
+        binding.clickToRefreshFragmentMaincontent.addView(spView);
         initView(spView);
-        refreshButton = (TextView) view.findViewById(R.id.click_to_refresh_fragment_refresh_button);
-        progressBar = (ProgressBar) view.findViewById(R.id.click_to_refresh_fragment_progress);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
+        binding.clickToRefreshFragmentRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refresh();
             }
         });
         refresh();
-        return view;
+        return binding.getRoot();
     }
 
     protected abstract void initView(View spView);
@@ -75,24 +70,21 @@ public abstract class ClickToRefreshFragmentBase extends Fragment {
     protected abstract Observable<Object> doRefresh();
 
     private void onFail() {
-        mainContent.setVisibility(View.INVISIBLE);
-        refreshButton.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.INVISIBLE);
+        binding.setShowContent(false);
+        binding.setShowProgress(false);
     }
 
     private void onSuccess(Object object) {
-        mainContent.setVisibility(View.VISIBLE);
-        refreshButton.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.INVISIBLE);
-        refreshUI(mainContent, object);
+        binding.setShowContent(true);
+        binding.setShowProgress(false);
+        refreshUI(binding.clickToRefreshFragmentMaincontent, object);
     }
 
     protected abstract void refreshUI(RelativeLayout mainContent, Object object);
 
     private void onProgress() {
-        mainContent.setVisibility(View.INVISIBLE);
-        refreshButton.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
+        binding.setShowContent(false);
+        binding.setShowProgress(true);
     }
 
 
