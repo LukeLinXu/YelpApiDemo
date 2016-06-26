@@ -1,5 +1,4 @@
 language: android
-sudo: false
 android:
   components:
   - build-tools-23.0.1
@@ -7,7 +6,7 @@ android:
   - extra-android-support
   - extra-android-m2repository
 script:
-- ./gradlew assembleRelease
+- sudo ./gradlew assembleRelease
 deploy:
   provider: releases
   api_key:
