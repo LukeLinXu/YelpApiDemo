@@ -1,0 +1,18 @@
+language: android
+sudo: false
+android:
+  components:
+  - build-tools-23.0.1
+  - android-23
+  - extra-android-support
+  - extra-android-m2repository
+script:
+- ./gradlew :app:assembleRelease
+deploy:
+  provider: releases
+  api_key:
+    secure: UIRIKMUZPAlaXHEC0xLCGQH0aJkdj/fKgFf6wBqR/gndD3jWowDycAktXRy6FJX02U+b2pqjQLq0DN+li5K6yx3B+fkhJDybpsxX6WXGeFBhEUf7z85uX9zQg88mBX+Yf+tZvcuAEQFYOoqqJvidEHfta6IHZk//mEFGNL3VeIz3UrwOJ0Yd6MWO68zv/iWDS4b268NpA3Dlt9S0zycIq0ABz6sy459A3rsUyD96uxgWz3Y9c/XgVYw4MWr4eh9drqFAXYPMr/GaOTObM8QLj7FaA+UBAJzR5FOczR21JyJIikMuoGg3+BOimlFGBgKZxTAaKHQjzeoErhmw/T7zl7b24OUvwE6YU7E4M4KIpjrTJX7yQDdxZm3jDmf1rat/6M+el1p5ewLoLgz5+gAKQFvpa+YLGS8Xcy8XHxw61dCU8BnO1ivafGN+HX7og9TJvZAvfy5Ur6yekIqQ7c7CKyTU4VrmMbrw1s5k9LoL5z4xWLQ5tbnR1r7WZZYwBkiNv7zIy2+fPY0V2Ll7tPpt1zyVF0kz08nh2lPdBcnOqgo6dUq9c3vwOzD3wBxYSrr8Jf6UsHQ00CAxALzvXkIVoPxC1t/f59KbFU+q3KYTKya6fZy+enL+8qogvJRe3mxNL31BIKzrvJfwJ2N+1WEYCecJ9vk7ZFBa4iJP5Jkdq90=
+  file: app/build/outputs/apk/app-release.apk
+  on:
+    repo: LukeLinXu/YelpApiDemo
+    tags: true
