@@ -3,10 +3,12 @@ before_install:
  - chmod +x gradlew
 android:
   components:
+  - platform-tools
+  - tools
   - build-tools-23.0.2
   - android-23
-  - extra-android-support
   - extra-android-m2repository
+  - extra-google-m2repository
 script:
 - ./gradlew :app:assembleRelease
 deploy:
